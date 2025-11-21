@@ -34,7 +34,7 @@ res.send("Welecome SiSi");
 const start= async function name(params) {
      console.log(process.env.db_string);
     await connectDB(process.env.db_string);
-    app.listen(process.env.Port || 3000,'0.0.0.0',()=>{
+    app.listen(process.env.PORT || 3000,'0.0.0.0',()=>{
     console.log("Running on port 3000");
 })
 }
