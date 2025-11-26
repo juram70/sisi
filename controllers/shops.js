@@ -4,6 +4,14 @@ const products=require('../models/products');
 const user=require("../models/User");
 const path=require('path');
 const { NotFoundError } = require('../errors');
+const { error } = require('console');
+const cloudinary=require('cloudinary').v2;
+
+cloudinary.config({ 
+        cloud_name:process.env.cloudinary_name, 
+        api_key: process.env.cloudinary_key, 
+        api_secret: process.env.cloudinary_api_secrect,
+    });
 
 //get all shops 
 const getAllShops=async function (req,res) {
@@ -133,6 +141,19 @@ const getcategories= async function (req,res) {
    res.json(categories);
 }
 
+const shoplogoUpload=async function (req,res){
+if(!req.files){
+    throw new BadRequestError("No image provided")
+}
+
+  const uploadedimageresult= await cloudinary.uploader.upload(req.files.image.tempFilePath,{
+    folder:"productsimages"
+  }).catch(error=>console.log(error));
+
+res.json({imgUrl:uploadedimageresult.url})
+
+}
+
 module.exports={
     getAllShops,
     createShop,
@@ -142,4 +163,5 @@ module.exports={
     uploadImage,
     getshopsbycategory,
     getcategories,
+    shoplogoUpload,
 }

@@ -8,11 +8,16 @@ const errorHandler=require("./mildwares/errorhandle");
 const notFound=require("./mildwares/notFound");
 const fileupload=require("express-fileupload");
 
+
+
+
 const app=express();
 app.use(express.static("public"));
 app.use(express.json());
 app.use(cors());
 app.use(fileupload({useTempFiles:true}))
+
+
 
 
 const shoprouter=require('./routes/shops');
@@ -23,13 +28,15 @@ app.use('/shops',shoprouter);
 app.use('/products',productsrouter);
 app.use('/auth',usersrouter);
 
-app.use(errorHandler);
-app.use(notFound);
+
 
 app.get("/",(req,res)=>{
-res.send("Welecome SiSi");
+    console.log(process.env.cloudinary_key);
+res.send("Welecome to SiSi");
 });
 
+app.use(errorHandler);
+app.use(notFound);
 
 const start= async function name(params) {
      console.log(process.env.db_string);

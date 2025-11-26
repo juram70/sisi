@@ -2,6 +2,15 @@ const { BadRequestError,NotFoundError } = require('../errors/index');
 const products=require('../models/products');
 const path=require('path');
 const shops=require('../models/shops');
+const { error } = require('console');
+const cloudinary=require("cloudinary").v2;
+cloudinary.config({ 
+        cloud_name:process.env.cloudinary_name, 
+        api_key:process.env.cloudinary_key, 
+        api_secret:process.env.cloudinary_api_secret,
+    });
+
+
 
 
 // create new product
@@ -87,7 +96,14 @@ const uploadImage=async function (req,res) {
 
 }
 
+const productimageUpload=async function (req,res){
+  const uploadedimageresult= await cloudinary.uploader.upload(req.files.image.tempFilePath,{
+    folder:"shoplogos"
+  }).catch(error=>console.log(error));
 
+res.json({imgUrl:uploadedimageresult.url})
+
+}
 
 module.exports={
     createproduct,
@@ -95,6 +111,7 @@ module.exports={
     getProducts,
     getProductsByCategory,
     uploadImage,
+    productimageUpload,
 }
 
 
