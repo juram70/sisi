@@ -7,7 +7,7 @@ const connectDB=require("./database/connect");
 const errorHandler=require("./mildwares/errorhandle");
 const notFound=require("./mildwares/notFound");
 const fileupload=require("express-fileupload");
-
+const cron = require('node-cron');
 
 
 
@@ -45,5 +45,8 @@ const start= async function name(params) {
     console.log("Running on port 3000");
 })
 }
+cron.schedule('* * * * *', () => {
+  console.log('running a task every minute');
+});
 
 start();
