@@ -9,8 +9,8 @@ const cloudinary=require('cloudinary').v2;
 
 cloudinary.config({ 
         cloud_name:process.env.cloudinary_name, 
-        api_key: process.env.cloudinary_key, 
-        api_secret: process.env.cloudinary_api_secrect,
+        api_key:process.env.cloudinary_key, 
+        api_secret:process.env.cloudinary_api_secret,
     });
 
 //get all shops 
@@ -147,7 +147,7 @@ if(!req.files){
 }
 
   const uploadedimageresult= await cloudinary.uploader.upload(req.files.image.tempFilePath,{
-    folder:"productsimages"
+    folder:"shopslogos"
   }).catch(error=>console.log(error));
 
 res.json({imgUrl:uploadedimageresult.url})

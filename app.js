@@ -1,4 +1,5 @@
-require ('dotenv').config();
+require('dotenv').config()
+
 
 const express=require ("express");
 const cors=require("cors");
@@ -31,7 +32,7 @@ app.use('/auth',usersrouter);
 
 
 app.get("/",(req,res)=>{
-    console.log(process.env.cloudinary_key);
+    
 res.send("Welecome to SiSi");
 });
 
@@ -39,8 +40,8 @@ app.use(errorHandler);
 app.use(notFound);
 
 const start= async function name(params) {
-     
-    await connectDB(process.env.db_string);
+     console.log(process.env.db_string);
+    await connectDB(process.env.db_String)
     app.listen(process.env.PORT || 3000,'0.0.0.0',()=>{
     console.log("Running on port 3000");
 })
