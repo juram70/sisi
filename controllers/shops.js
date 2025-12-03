@@ -145,8 +145,13 @@ const shoplogoUpload=async function (req,res){
 if(!req.files){
     throw new BadRequestError("No image provided")
 }
+  
+ const uploadedImage= req.files.image;
+  if(uploadedImage.size>size){
+        throw new BadRequestError("File got big size!! uploade image with 1mb")
+    }
 
-  const uploadedimageresult= await cloudinary.uploader.upload(req.files.image.tempFilePath,{
+  const uploadedimageresult= await cloudinary.uploader.upload(uploadedImage.tempFilePath,{
     folder:"shopslogos"
   }).catch(error=>console.log(error));
 
