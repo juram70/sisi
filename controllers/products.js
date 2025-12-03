@@ -101,8 +101,9 @@ const productimageUpload=async function (req,res){
   if(!req.files){
       throw new BadRequestError("No image provided")
   }
-
+ 
   const uploadedImage= req.files.image;
+   const size=1024 * 1024;
   if(uploadedImage.size>size){
         throw new BadRequestError("File got big size!! uploade image with 1mb")
     }

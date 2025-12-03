@@ -147,6 +147,7 @@ if(!req.files){
 }
   
  const uploadedImage= req.files.image;
+  const size=1024 * 1024;
   if(uploadedImage.size>size){
         throw new BadRequestError("File got big size!! uploade image with 1mb")
     }
