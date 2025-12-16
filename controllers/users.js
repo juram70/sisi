@@ -24,6 +24,33 @@ const createUser=async function(req,res) {
     res.json(user);
 }
 
+const Login = async function (req, res) {
+  const { phonenumber, password } = req.body;
+
+  if (!phonenumber || !password) {
+    throw new BadRequestError("Please enter valid credentials");
+  }
+
+  const user = await UserModel.findOne({ phonenumber:phonenumber });
+   console.log(user);
+  if (!user) {
+    throw new BadRequestError("Phone Number/password is not correct");
+  }
+
+  const isMatch = await user.comparepassword(password);
+
+  if (!isMatch) {
+    throw new BadRequestError("Phone Number/password is not correct");
+  }
+
+  res.json({
+    phonenumber: user.phonenumber,
+    whatsappnumber: user.phonenumber,
+    _id: user._id.toString()
+  });
+};
+
+
 const getUser=async function(req,res){
   const {id}=req.params;
   const _id=id;
@@ -38,4 +65,5 @@ const getUser=async function(req,res){
 module.exports={
     createUser,
     getUser,
+    Login,
 }
