@@ -32,7 +32,7 @@ const Login = async function (req, res) {
   }
 
   const user = await UserModel.findOne({ phonenumber:phonenumber });
-   console.log(user);
+   
   if (!user) {
     throw new BadRequestError("Phone Number/password is not correct");
   }

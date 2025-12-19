@@ -16,6 +16,6 @@ router.route('/shop/:id').get(getShop).patch(updateShop);
 router.route("/logo").post(shoplogoUpload);
 router.route("/shops/:category").get(getshopsbycategory);
 router.route('/categories').get(getcategories);
-router.route("/myshops").get(getMyShops)
+router.route("/myshops/:id").get(getMyShops)
 
 module.exports=router;

@@ -60,13 +60,14 @@ const createShop=async function (req,res) {
 }
 //get sellers shops
 const getMyShops=async function(req,res){
-    const id=req.user.userID;
-    const shops=await shops.find({shopownedBy:id});
+    
+    const id=req.params.id;
+    const ownersshops=await shops.find({shopownedby:id});
 
-    if(!shop){
+    if(!ownersshops){
         throw new BadRequestError('You do not have shops')
     }
-    res.json(shops);
+    res.json(ownersshops);
 }
 //upadate shop
 const updateShop=async function(req,res){
