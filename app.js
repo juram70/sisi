@@ -41,7 +41,7 @@ app.use(notFound);
 
 const start= async function name(params) {
     
-    await connectDB(process.env.db_String)
+    await connectDB(process.env.db_string)
     app.listen(process.env.PORT || 3000,'0.0.0.0',()=>{
     console.log("Running on port 3000");
 })
