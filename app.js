@@ -13,6 +13,7 @@ const cron = require('node-cron');
 
 
 const app=express();
+//mildwares
 app.use(express.static("public"));
 app.use(express.json());
 app.use(cors());
@@ -33,7 +34,7 @@ app.use('/auth',usersrouter);
 
 app.get("/",(req,res)=>{
     
-res.send("Welecome to SiSi");
+res.send("Welecome to SiSi api");
 });
 
 app.use(errorHandler);
