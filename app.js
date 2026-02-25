@@ -4,6 +4,7 @@ require('dotenv').config()
 const express=require ("express");
 const cors=require("cors");
 const bodyParser=require("body-parser");
+const cookieParser = require('cookie-parser');
 const connectDB=require("./database/connect");
 const errorHandler=require("./mildwares/errorhandle");
 const notFound=require("./mildwares/notFound");
@@ -16,6 +17,7 @@ const app=express();
 //mildwares
 app.use(express.static("public"));
 app.use(express.json());
+app.use(cookieParser(process.env.jwt_secret));
 app.use(cors());
 app.use(fileupload({useTempFiles:true}))
 
@@ -25,6 +27,7 @@ app.use(fileupload({useTempFiles:true}))
 const shoprouter=require('./routes/shops');
 const productsrouter=require('./routes/products');
 const usersrouter=require('./routes/users');
+
 
 app.use('/shops',shoprouter);
 app.use('/products',productsrouter);

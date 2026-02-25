@@ -1,5 +1,6 @@
 const UserModel=require('../models/User');
 const {BadRequestError}=require('../errors/index');
+const {createJwtUser,attachCookieToResponse}=require("../utilts/utilts")
 
 
 
@@ -20,8 +21,10 @@ const createUser=async function(req,res) {
         phonenumber:phonenumber,
         whatsappnumber:whatsappnumber,
     });
+     const jwtuser=createJwtUser(user);
+     attachCookieToResponse(res,jwtuser);
 
-    res.json(user);
+    res.json(jwtuser);
 }
 
 const Login = async function (req, res) {
@@ -42,12 +45,11 @@ const Login = async function (req, res) {
   if (!isMatch) {
     throw new BadRequestError("Phone Number/password is not correct");
   }
+    const jwtuser=createJwtUser(user);
+     attachCookieToResponse(res,jwtuser);
 
-  res.json({
-    phonenumber: user.phonenumber,
-    whatsappnumber: user.phonenumber,
-    _id: user._id.toString()
-  });
+    
+  res.json(jwtuser);
 };
 
 

@@ -61,7 +61,8 @@ const createShop=async function (req,res) {
 //get sellers shops
 const getMyShops=async function(req,res){
     
-    const id=req.params.id;
+    const id=req.user._id;
+    
     const ownersshops=await shops.find({shopownedby:id});
 
     if(!ownersshops){
