@@ -1,55 +1,48 @@
-require('dotenv').config()
+require("dotenv").config();
 
+const express = require("express");
+const cors = require("cors");
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+const connectDB = require("./database/connect");
+const errorHandler = require("./mildwares/errorhandle");
+const notFound = require("./mildwares/notFound");
+const fileupload = require("express-fileupload");
+const cron = require("node-cron");
 
-const express=require ("express");
-const cors=require("cors");
-const bodyParser=require("body-parser");
-const cookieParser = require('cookie-parser');
-const connectDB=require("./database/connect");
-const errorHandler=require("./mildwares/errorhandle");
-const notFound=require("./mildwares/notFound");
-const fileupload=require("express-fileupload");
-const cron = require('node-cron');
-
-
-
-const app=express();
+const app = express();
 //mildwares
 app.use(express.static("public"));
 app.use(express.json());
 app.use(cookieParser(process.env.jwt_secret));
-app.use(cors());
-app.use(fileupload({useTempFiles:true}))
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  }),
+);
+app.use(fileupload({ useTempFiles: true }));
 
+const shoprouter = require("./routes/shops");
+const productsrouter = require("./routes/products");
+const usersrouter = require("./routes/users");
 
+app.use("/shops", shoprouter);
+app.use("/products", productsrouter);
+app.use("/auth", usersrouter);
 
-
-const shoprouter=require('./routes/shops');
-const productsrouter=require('./routes/products');
-const usersrouter=require('./routes/users');
-
-
-app.use('/shops',shoprouter);
-app.use('/products',productsrouter);
-app.use('/auth',usersrouter);
-
-
-
-app.get("/",(req,res)=>{
-    
-res.send("Welecome to SiSi api");
+app.get("/", (req, res) => {
+  res.send("Welecome to SiSi api");
 });
 
 app.use(errorHandler);
 app.use(notFound);
 
-const start= async function name(params) {
-    
-    await connectDB(process.env.db_string)
-    app.listen(process.env.PORT || 3000,'0.0.0.0',()=>{
+const start = async function name(params) {
+  await connectDB(process.env.db_string);
+  app.listen(process.env.PORT || 3000, "0.0.0.0", () => {
     console.log("Running on port 3000");
-})
-}
-
+  });
+};
 
 start();
