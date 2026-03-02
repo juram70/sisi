@@ -17,11 +17,8 @@ app.use(express.json());
 app.use(cookieParser(process.env.jwt_secret));
 app.use(
   cors({
-    origin:["http://localhost:5173",
-      "https://sisi-production-58c9.up.railway.app",
-      "https://sisi-xhpd.onrender.com"
-    ] ,
-    credentials: true,
+    origin:"http://localhost:5173",
+      credentials: true,
   }),
 );
 app.use(fileupload({ useTempFiles: true }));
