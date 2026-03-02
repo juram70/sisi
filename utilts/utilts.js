@@ -19,13 +19,13 @@ const attachCookieToResponse = (res, user) => {
 
   const oneDay = 1000 * 60 * 60 * 24;
 
-  res.cookie("token", token, {
-    httpOnly: true,
-    expires: new Date(Date.now() + oneDay),
-    secure:true,
-    signed: true,
-    sameSite:"None",
-  });
+res.cookie("token", token, {
+  httpOnly: true,
+  expires: new Date(Date.now() + oneDay),
+  secure: true,
+  sameSite: "None",
+  signed: true,
+});
 };
 
 module.exports = {
