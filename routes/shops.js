@@ -12,7 +12,7 @@ const { getAllShops,
 const {authencateUser} = require('../mildwares/auth')
 const router=express.Router();
 
-router.route('/').get(getAllShops).post(createShop);
+router.route('/').get(getAllShops).post(authencateUser,createShop);
 router.route('/shop/:id').get(getShop).patch(updateShop);
 router.route("/logo").post(shoplogoUpload);
 router.route("/shops/:category").get(getshopsbycategory);
