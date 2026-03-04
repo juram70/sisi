@@ -20,7 +20,8 @@ app.use(
     origin:[
       "http://localhost:5173",
       "https://sisi-production-58c9.up.railway.app",
-      "https://sisi-xhpd.onrender.com"
+      "https://sisi-xhpd.onrender.com",
+      "https://sisi-e8a7a.web.app"
     ],
       credentials: true,
   }),
