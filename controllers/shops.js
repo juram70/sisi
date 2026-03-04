@@ -50,7 +50,7 @@ const getShop=async function (req,res) {
 //creating new shop
 const createShop=async function (req,res) {
     // next line will be used when login implemented 😒 
-    req.body.shopownedBy=req.user._id;
+    req.body.shopownedby=req.user._id;
     const shop=await shops.create(req.body);
     if(!shop){
         throw new BadRequestError('shop not created');
